@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+# Don't rewrite files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Rewrite everything else to index.html to allow html5 state links
+RewriteRule ^_register$ index.php?page=register [L]
+RewriteRule ^_logon$ index.php?page=logon [L]
+RewriteRule ^_shared/(.*)$ index.php?page=shared [L]
+RewriteRule ^_session$ index.php?page=session [L]
+RewriteRule ^_settings$ index.php?page=settings [L]
+RewriteRule ^_files/(.*)$ index.php?page=files [L]
+
+RewriteRule ^ index.html [L]
+</IfModule>
